@@ -6,6 +6,14 @@ import App from './Components/App';
 import movies from './reducers';
 
 const store = createStore(movies);
+console.log('store',store);
+console.log('state',store.getState());
+
+store.dispatch({
+  type:'ADD_MOVIE',
+  movies:[{name:'ironman'}]
+})
+
 console.log('state',store.getState());
 
 ReactDOM.render(
