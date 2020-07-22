@@ -5,3 +5,12 @@
 // {
 //     type:'INCREASE_COUNT'
 // }
+export const ADD_MOVIE = 'ADD_MOVIES';
+
+export function addMovies(movies){
+ return {
+         type:ADD_MOVIE,
+         movies:movies 
+    }
+
+}

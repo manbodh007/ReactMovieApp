@@ -1,11 +1,12 @@
 import React from 'react';
-import {data} from '../data';
+// import {data} from '../data';
 import Navbar from './Navbar';
 import MovieCart from './MovieCart';
 
 
 
-function App() {
+function App(props) {
+  const {list} = props.store.getState(); // store have {list,favorites}
   return (
     <div className="App">
       <Navbar />
@@ -16,8 +17,8 @@ function App() {
            </div>
            <div className='list'>
              {
-               data.map(movie =>{
-                 return <MovieCart movie = {movie}/>
+              list.map((movie,index) =>{
+                 return <MovieCart movie = {movie} key = {`movie-${index}`}/>
                })
              }
            </div>
