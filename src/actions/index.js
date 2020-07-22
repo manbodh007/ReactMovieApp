@@ -31,17 +31,11 @@ export function removeFavourites(movie){
         movie
     }
 }
-export function showAllMovies(movies){
-    return {
-        type:SHOW_ALL_MOVIES,
-        movies
-    }
-}
 
-export function showFavouriteMovies(movies){
+export function showFavouriteMovies(val){
     return {
         type:SHOW_FAVOURITES,
-        movies
+        val
     }
 }
 

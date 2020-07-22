@@ -1,9 +1,10 @@
 import { act } from "react-dom/test-utils"
-import {ADD_MOVIE,ADD_FAVOURITES,REMOVE_FAVOURITES,SHOW_ALL_MOVIES, SHOW_FAVOURITES}  from '../actions';
+import {ADD_MOVIE,ADD_FAVOURITES,REMOVE_FAVOURITES,SHOW_FAVOURITES}  from '../actions';
 
 const intialState = {
     list:[],
-    favourites:[]
+    favourites:[],
+    showFavourites:false
 }
 export default function movies(state = intialState,action){
     console.log("inside reducer");
@@ -11,7 +12,7 @@ export default function movies(state = intialState,action){
     switch(action.type){
         case ADD_MOVIE:
             return{
-                ... state,
+                ...state,
                 list:action.movies
             }
         case ADD_FAVOURITES:
@@ -22,7 +23,7 @@ export default function movies(state = intialState,action){
         case SHOW_FAVOURITES:
             return {
                 ...state,
-                list:action.movies
+                showFavourites:action.val
             }
             case REMOVE_FAVOURITES:
                 let index = state.favourites.indexOf(action.movie);
