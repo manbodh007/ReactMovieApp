@@ -1,12 +1,18 @@
 import { act } from "react-dom/test-utils"
-import {ADD_MOVIE,ADD_FAVOURITES,REMOVE_FAVOURITES,SHOW_FAVOURITES}  from '../actions';
+import {combineReducers} from 'redux';
+import {
+    ADD_MOVIE,
+    ADD_FAVOURITES,
+    REMOVE_FAVOURITES,
+    SHOW_FAVOURITES
+    }from '../actions';
 
-const intialState = {
+const intialMovieState = {
     list:[],
     favourites:[],
     showFavourites:false
 }
-export default function movies(state = intialState,action){
+export function movies(state = intialMovieState,action){
     console.log("inside reducer");
 
     switch(action.type){
@@ -36,3 +42,32 @@ export default function movies(state = intialState,action){
          return state
     }
 }
+
+const intailSearchState = {
+    result:{
+
+    }
+}
+
+
+export function search(state=intailSearchState,action){
+   return state;
+}
+
+const intailRootreducer = {
+    movies:intialMovieState,
+    search:intailSearchState
+}
+
+
+// export default function rootReducer(state=intailRootreducer,action){
+//     return {
+//         movies:movies(state.movies,action),
+//         search:search(state.search,action)
+//     }
+// }
+
+export default combineReducers({
+    movies,
+    search
+});

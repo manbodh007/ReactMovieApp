@@ -4,10 +4,10 @@ import {createStore} from 'redux';
 import './index.css';
 import {data} from './data';
 import App from './Components/App';
-import movies from './reducers';
+import rootReducer from './reducers';
 import {addMovies} from './actions';
 
-const store = createStore(movies);
+const store = createStore(rootReducer);
 console.log('store',store);
 console.log('state',store.getState());
 
