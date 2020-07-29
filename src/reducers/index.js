@@ -1,10 +1,12 @@
-import { act } from "react-dom/test-utils"
+
 import {combineReducers} from 'redux';
 import {
     ADD_MOVIE,
     ADD_FAVOURITES,
     REMOVE_FAVOURITES,
-    SHOW_FAVOURITES
+    SHOW_FAVOURITES,
+    ADD_TO_MOVIES_LIST,
+    ADD_MOVIE_SEARCH_RESULT
     }from '../actions';
 
 const intialMovieState = {
@@ -13,7 +15,7 @@ const intialMovieState = {
     showFavourites:false
 }
 export function movies(state = intialMovieState,action){
-    console.log("inside reducer");
+    console.log("inside movie reducer");
 
     switch(action.type){
         case ADD_MOVIE:
@@ -31,33 +33,61 @@ export function movies(state = intialMovieState,action){
                 ...state,
                 showFavourites:action.val
             }
-            case REMOVE_FAVOURITES:
+        case REMOVE_FAVOURITES:
                 let index = state.favourites.indexOf(action.movie);
                 console.log('index',index);
                 state.favourites.splice(index,1);
             return {
              ...state,
             } 
+        case ADD_TO_MOVIES_LIST:
+                return{
+                    ...state,
+                    list:[action.movie, ...state.list],
+            }
+        
         default:
          return state
     }
 }
 
 const intailSearchState = {
-    result:{
-
-    }
+    result:{},
+    showSearchResult:false
 }
+
+export default combineReducers({
+    movies,
+    search
+});
 
 
 export function search(state=intailSearchState,action){
-   return state;
+
+    console.log("inside search reducer");
+
+   switch(action.type){
+       case ADD_MOVIE_SEARCH_RESULT:
+         return{
+            ...state,
+            result:action.movie,
+            showSearchResult:true
+         }
+        case ADD_TO_MOVIES_LIST:
+            return{
+                ...state,
+                showSearchResult:false
+        }
+        
+        default:
+          return state
+   }
 }
 
-const intailRootreducer = {
-    movies:intialMovieState,
-    search:intailSearchState
-}
+// const intailRootreducer = {
+//     movies:intialMovieState,
+//     search:intailSearchState
+// }
 
 
 // export default function rootReducer(state=intailRootreducer,action){
@@ -67,7 +97,3 @@ const intailRootreducer = {
 //     }
 // }
 
-export default combineReducers({
-    movies,
-    search
-});

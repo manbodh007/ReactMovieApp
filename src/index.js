@@ -1,13 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {createStore} from 'redux';
+import {createStore,applyMiddleware} from 'redux';
 import './index.css';
 import {data} from './data';
 import App from './Components/App';
 import rootReducer from './reducers';
 import {addMovies} from './actions';
+import thunk from 'redux-thunk';
 
-const store = createStore(rootReducer);
+
+
+// logger(logs)(next)(action)
+// logger(logs) logs has to property dispatch and getState
+// const logger = function({dispatch,getState}){
+//   return function(next){
+//     return function(action){
+//       console.log('action type =',action.type);
+//       next(action);
+//     }
+//   }
+// }
+
+const logger =({dispatch,getState})=>(next)=>(action)=>{
+  if(typeof action !== 'function'){
+    console.log('action type:',action.type);
+  }
+
+  next(action);
+}
+
+const store = createStore(rootReducer,applyMiddleware(logger,thunk));
+
 console.log('store',store);
 console.log('state',store.getState());
 
