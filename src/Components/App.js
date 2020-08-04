@@ -1,10 +1,11 @@
 import React from 'react';
 // import {data} from '../data';
+import {connect} from 'react-redux';
 import Navbar from './Navbar';
 import MovieCart from './MovieCart';
 import {showFavouriteMovies} from '../actions';
-import {storeContext} from '../index';
-import {connect} from '../index';
+// import {storeContext} from '../index';
+// import {connect} from '../index';
 
 class App extends React.Component {
 
@@ -40,9 +41,7 @@ class App extends React.Component {
     console.log('search',search);
     return (
       <div className="App">
-        <Navbar 
-         search = {search}
-        />
+        <Navbar />
          <div className="main"> 
              <div className="tabs">
                <div className = {`tab ${showFavourites?'':'active-tabs'}`} onClick = {()=>this.showFavouriteMovie(false)}>Movies</div>
@@ -54,7 +53,7 @@ class App extends React.Component {
                    return <MovieCart 
                             movie = {movie} 
                             key = {`movie-${index}`} 
-                            state = {this.props}
+                            // state = {this.props}
                             dispatch = {this.props.dispatch}
                             isFavourite = {this.isMovieFavourite(movie)}
                             />
@@ -78,13 +77,13 @@ class App extends React.Component {
 //   }
 // }
 
-function callback(state){
+function mapStateToProps(state){
    return{
      movies:state.movies,
      search:state.search
    }
 }
 
-const connectedComponent = connect(callback)(App)
+const connectedComponent = connect(mapStateToProps)(App)
 
 export default connectedComponent;

@@ -1,6 +1,8 @@
 import React from 'react';
 import {addFavourites,removeFavourites} from '../actions';
 
+import {connect} from 'react-redux';
+
 
 class MovieCart extends React.Component {
 
@@ -42,5 +44,12 @@ handleRemoveFavoriteBtn = ()=>{
       );
   }
 }
+
+// function mapStateToProps(state){
+//   return {
+//      movie:
+//   }
+// }
+// const connectedAppComponent = connect(mapStateToProps)(MovieCart);
 
 export default MovieCart;
