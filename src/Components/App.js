@@ -3,19 +3,21 @@ import React from 'react';
 import Navbar from './Navbar';
 import MovieCart from './MovieCart';
 import {showFavouriteMovies} from '../actions';
+import {storeContext} from '../index';
+import {connect} from '../index';
 
 class App extends React.Component {
 
   componentDidMount(){
     const {store} = this.props; // store have {list,favorites}
-    store.subscribe(()=>{
-      console.log('updated');
-      this.forceUpdate();
-    })
+    // store.subscribe(()=>{
+    //   console.log('updated');
+    //   this.forceUpdate();
+    // })
   }
 
   isMovieFavourite = (movie)=>{
-     const {movies} = this.props.store.getState();
+     const {movies} = this.props;
      let index = movies.favourites.indexOf(movie);
      if(index!=-1){
        return true;
@@ -24,13 +26,14 @@ class App extends React.Component {
   }
  
   showFavouriteMovie = (val)=>{
-    const {favourites} = this.props.store.getState();
-    this.props.store.dispatch(showFavouriteMovies(val));
+    const {favourites} = this.props;
+    this.props.dispatch(showFavouriteMovies(val));
     console.log('favourites',favourites);
   }
 
   render(){
-    const {movies,search} = this.props.store.getState();
+    console.log('props',this.props);
+    const {movies,search} = this.props;
     const {list,favourites,showFavourites} = movies;
     const displayMovies = showFavourites?favourites:list;
 
@@ -38,7 +41,6 @@ class App extends React.Component {
     return (
       <div className="App">
         <Navbar 
-         store = {this.props.store}
          search = {search}
         />
          <div className="main"> 
@@ -52,7 +54,8 @@ class App extends React.Component {
                    return <MovieCart 
                             movie = {movie} 
                             key = {`movie-${index}`} 
-                            store = {this.props.store}
+                            state = {this.props}
+                            dispatch = {this.props.dispatch}
                             isFavourite = {this.isMovieFavourite(movie)}
                             />
                       })
@@ -65,4 +68,23 @@ class App extends React.Component {
   }
 }
 
-export default App;
+// class AppWrapper extends React.Component{
+//   render(){
+//     return(
+//         <storeContext.Consumer>
+//           {(store)=><App store = {store}/>}
+//         </storeContext.Consumer>
+//     )
+//   }
+// }
+
+function callback(state){
+   return{
+     movies:state.movies,
+     search:state.search
+   }
+}
+
+const connectedComponent = connect(callback)(App)
+
+export default connectedComponent;

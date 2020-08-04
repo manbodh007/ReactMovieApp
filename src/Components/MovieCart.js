@@ -7,13 +7,13 @@ class MovieCart extends React.Component {
 
 handleFavoriteBtn = ()=>{
   const {movie} = this.props;
-  this.props.store.dispatch(addFavourites(movie));
-  console.log('added fav',this.props.store.getState());
+  this.props.dispatch(addFavourites(movie));
+ 
 }
 handleRemoveFavoriteBtn = ()=>{
   const {movie} = this.props;
-  this.props.store.dispatch(removeFavourites(movie));
-  console.log('remove fav',this.props.store.getState());
+  this.props.dispatch(removeFavourites(movie));
+  
 }
 
 

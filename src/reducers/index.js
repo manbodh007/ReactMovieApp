@@ -56,10 +56,7 @@ const intailSearchState = {
     showSearchResult:false
 }
 
-export default combineReducers({
-    movies,
-    search
-});
+
 
 
 export function search(state=intailSearchState,action){
@@ -83,6 +80,10 @@ export function search(state=intailSearchState,action){
           return state
    }
 }
+export default combineReducers({
+    movies,
+    search
+});
 
 // const intailRootreducer = {
 //     movies:intialMovieState,
